@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from covidapi.endpoints.handlers import raise_general_error
+from covidapi.resources.handlers import raise_general_error
 
 class Foo(Resource):
     def get(self, user):

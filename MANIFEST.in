@@ -1,0 +1,2 @@
+graft covidapi/static
+graft covidapi/templates
