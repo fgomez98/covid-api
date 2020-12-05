@@ -1,12 +1,12 @@
 # How to run?
-####Install requirements
+#### Install requirements
 ```
 pip install -r requirements.txt
 ```
 ``` 
 pip install -e . # nunca lo use
 ```
-####Ru the api
+#### Run the api
 ```
 python -m covidapi
 ```  
@@ -19,3 +19,5 @@ curl -X POST http://127.0.0.1:5000/foo/titi_henry/
 curl -X GET http://127.0.0.1:5000/foo/titi_henry/
 curl -X DELETE http://127.0.0.1:5000/foo/titi_henry/
 ```     
+#### Acces swagger Documentation on
+http://localhost:5000/api/spec.html or curl http://localhost:5000/api/spec.json
