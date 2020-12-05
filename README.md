@@ -9,6 +9,12 @@ pip install -e . # nunca lo use
 #### Run the api
 ```
 python -m covidapi
+```
+o
+```
+export FLASK_APP=covidapi/api
+export FLASK_ENV=development
+flask run   
 ```  
 #### Samples
 ```
