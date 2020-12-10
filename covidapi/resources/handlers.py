@@ -8,6 +8,7 @@ from flask_restful import abort
 from covidapi.db import query
 from covidapi.models.filters import Filters
 from covidapi.models.summary import Summary
+from covidapi.population import population_data
 
 delta = timedelta(days=1)
 
@@ -31,16 +32,20 @@ def raise_general_error():
     abort(404, message="Ups, something went wrong")
 
 
-def summary(start_date: date, end_date: date, df: pd.DataFrame):
+def summary(start_date: date, end_date: date, region: str, df: pd.DataFrame):
+    population = population_data[region]
     current_date = start_date
-    summaries = [Summary(current_date)]
+    summaries = [Summary(current_date, population)]
     while current_date <= end_date:
-        summary = Summary(current_date)
-        current_df = query(df, Filters(current_date, current_date))
+        summary = Summary(current_date, population)
+        summary.add_population(population)
+        filter = Filters()
+        filter.add_date(current_date)
+        current_df = query(df, filter)
         casos = current_df.shape[0]
-        muertes = query(current_df, Filters(current_date, current_date, dead=True)).shape[0]
-        summary.add_casos(casos, summaries[-1].casos_acc + casos)
-        summary.add_muertes(muertes, summaries[-1].muertes_acc + muertes)
+        filter.add_dead(True)
+        muertes = query(current_df, filter).shape[0]
+        summary.add_casos_muertes(casos, summaries[-1].casos_acc + casos, muertes, summaries[-1].muertes_acc + muertes)
         summaries.append(summary)
         current_date = current_date + delta
     return summaries[1:]

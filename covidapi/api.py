@@ -5,6 +5,7 @@ from flask_restful_swagger import swagger
 from covidapi.resources.bar import Bar
 from covidapi.resources.foo import Foo
 from covidapi.resources.national import National, NationalCount
+from covidapi.resources.provinces import Provinces, ProvinceCount, Province
 
 app = Flask(__name__)
 if app.config['ENV'] == 'production':
@@ -18,6 +19,9 @@ api.add_resource(Foo, "/foo/<string:user>/")
 api.add_resource(Bar, "/bar/")
 api.add_resource(National, "/national/")
 api.add_resource(NationalCount, "/national/count/")
+api.add_resource(Provinces, "/provinces/")
+api.add_resource(Province, "/provinces/<string:id>/")
+api.add_resource(ProvinceCount, "/provinces/<string:id>/count/")
 
 
 def run_api(*args, **kwargs):

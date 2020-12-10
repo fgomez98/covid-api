@@ -62,16 +62,17 @@ class National(Resource):
         ]
     )
     @marshal_with(Summary.resource_fields)
+    # fixme: me enquilombe un poco tratando de que las fechas sean un argumento opcional
     def get(self):
         args = filters_get_args.parse_args()
-        filters = Filters(start_date=args.get('from'),
-                          end_date=args.get('to'),
-                          icu=args.get('icu'),
-                          dead=args.get('dead'),
-                          respirator=args.get('respirator'),
-                          classification=args.get('classification'))
+        filters = Filters()
+        filters.add_interval(start_date=args.get('from'), end_date=args.get('to'))
+        filters.add_icu(icu=args.get('icu'))
+        filters.add_dead(dead=args.get('dead'))
+        filters.add_respirator(respirator=args.get('respirator'))
+        filters.add_classification(classification=args.get('classification'))
         result = query(df, filters)
-        ret = summary(filters.start_date, filters.end_date, result)
+        ret = summary(filters.start_date, filters.end_date, 'nacional', result)
         return ret
 
 
@@ -123,10 +124,10 @@ class NationalCount(Resource):
     )
     def get(self):
         args = filters_get_args.parse_args()
-        filters = Filters(start_date=args.get('from'),
-                          end_date=args.get('to'),
-                          icu=args.get('icu'),
-                          dead=args.get('dead'),
-                          respirator=args.get('respirator'),
-                          classification=args.get('classification'))
+        filters = Filters()
+        filters.add_interval(start_date=args.get('from'), end_date=args.get('to'))
+        filters.add_icu(icu=args.get('icu'))
+        filters.add_dead(dead=args.get('dead'))
+        filters.add_respirator(respirator=args.get('respirator'))
+        filters.add_classification(classification=args.get('classification'))
         return {'count': query(df, filters).shape[0]}
