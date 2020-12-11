@@ -34,10 +34,23 @@ def raise_general_error():
 
 def summary(start_date: date, end_date: date, region: str, df: pd.DataFrame):
     population = population_data[region]
+    summary = Summary(population=population)
+    filter = Filters()
+    filter.add_interval(start_date, end_date)
+    current_df = query(df, filter)
+    casos = current_df.shape[0]
+    filter.add_dead(True)
+    muertes = query(current_df, filter).shape[0]
+    summary.add_casos_muertes(casos, muertes)
+    return summary
+
+
+def summary_history(start_date: date, end_date: date, region: str, df: pd.DataFrame):
+    population = population_data[region]
     current_date = start_date
-    summaries = [Summary(current_date, population)]
+    summaries = [Summary(date=current_date, population=population)]
     while current_date <= end_date:
-        summary = Summary(current_date, population)
+        summary = Summary(date=current_date, population=population)
         summary.add_population(population)
         filter = Filters()
         filter.add_date(current_date)
@@ -45,7 +58,7 @@ def summary(start_date: date, end_date: date, region: str, df: pd.DataFrame):
         casos = current_df.shape[0]
         filter.add_dead(True)
         muertes = query(current_df, filter).shape[0]
-        summary.add_casos_muertes(casos, summaries[-1].casos_acc + casos, muertes, summaries[-1].muertes_acc + muertes)
+        summary.add_casos_muertes_acc(casos, summaries[-1].casos_acc + casos, muertes, summaries[-1].muertes_acc + muertes)
         summaries.append(summary)
         current_date = current_date + delta
     return summaries[1:]

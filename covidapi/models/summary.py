@@ -23,10 +23,9 @@ class Summary:
         'casos_acc_por_millon': fields.Float,
         'muertes_acc_cada_cien_mil': fields.Float,
         'muertes_acc_por_millon': fields.Float
-
     }
 
-    def __init__(self, date, population):
+    def __init__(self, population, date=None):
         self.fecha = date
         self.poblacion = population
         self.casos = 0
@@ -37,17 +36,26 @@ class Summary:
     def add_population(self, population):
         self.poblacion = population
 
-    def add_casos_muertes(self, casos, casos_acc, muertes, muertes_acc):
+    def add_casos_muertes_acc(self, casos, casos_acc, muertes, muertes_acc):
         self.casos = casos
         self.casos_acc = casos_acc
         self.muertes = muertes
         self.muertes_acc = muertes_acc
-        self.letalidad = div(self.muertes, self.casos) * 100
-        self.casos_cada_cien_mil = div(self.casos, self.poblacion) * 100000
-        self.casos_por_millon = div(self.casos, self.poblacion) * 1000000
-        self.muertes_cada_cien_mil = div(self.muertes, self.poblacion) * 100000
-        self.muertes_por_millon = div(self.muertes, self.poblacion) * 1000000
-        self.casos_acc_cada_cien_mil = div(self.casos_acc, self.poblacion) * 100000
-        self.casos_acc_por_millon = div(self.casos_acc, self.poblacion) * 1000000
-        self.muertes_acc_cada_cien_mil = div(self.muertes_acc, self.poblacion) * 100000
-        self.muertes_acc_por_millon = div(self.muertes_acc, self.poblacion) * 1000000
+        self.letalidad = div(muertes, casos) * 100
+        self.casos_cada_cien_mil = div(casos, self.poblacion) * 100000
+        self.casos_por_millon = div(casos, self.poblacion) * 1000000
+        self.muertes_cada_cien_mil = div(muertes, self.poblacion) * 100000
+        self.muertes_por_millon = div(muertes, self.poblacion) * 1000000
+        self.casos_acc_cada_cien_mil = div(casos_acc, self.poblacion) * 100000
+        self.casos_acc_por_millon = div(casos_acc, self.poblacion) * 1000000
+        self.muertes_acc_cada_cien_mil = div(muertes_acc, self.poblacion) * 100000
+        self.muertes_acc_por_millon = div(muertes_acc, self.poblacion) * 1000000
+
+    def add_casos_muertes(self, casos, muertes):
+        self.casos = casos
+        self.muertes = muertes
+        self.letalidad = div(muertes, casos) * 100
+        self.casos_cada_cien_mil = div(casos, self.poblacion) * 100000
+        self.casos_por_millon = div(casos, self.poblacion) * 1000000
+        self.muertes_cada_cien_mil = div(muertes, self.poblacion) * 100000
+        self.muertes_por_millon = div(muertes, self.poblacion) * 1000000

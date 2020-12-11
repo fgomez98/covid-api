@@ -14,8 +14,8 @@ class Filters:
     }
 
     def __init__(self):
-        self.start_date = date(year=2020, month=1, day=1)
-        self.end_date = date.today()
+        self.start_date = None
+        self.end_date = None
         self.icu = None
         self.dead = None
         self.respirator = None

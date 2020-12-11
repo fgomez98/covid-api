@@ -4,7 +4,7 @@ from flask_restful_swagger import swagger
 
 from covidapi.resources.bar import Bar
 from covidapi.resources.foo import Foo
-from covidapi.resources.national import National, NationalCount
+from covidapi.resources.national import National, NationalCount, NationalHistory
 from covidapi.resources.provinces import Provinces, ProvinceCount, Province
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ api = swagger.docs(Api(app), apiVersion="0.1", description="My API Swagger doc",
 api.add_resource(Foo, "/foo/<string:user>/")
 api.add_resource(Bar, "/bar/")
 api.add_resource(National, "/national/")
+api.add_resource(NationalHistory, "/national/history/")
 api.add_resource(NationalCount, "/national/count/")
 api.add_resource(Provinces, "/provinces/")
 api.add_resource(Province, "/provinces/<string:id>/")
