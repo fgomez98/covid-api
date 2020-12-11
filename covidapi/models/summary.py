@@ -3,7 +3,7 @@ from flask_restful import fields
 
 #    Safe zero division method
 def div(a, b):
-    return (a / b) * 100 if b != 0 else 0
+    return round(a / b, 4) if b != 0 else 0
 
 
 class Summary:
@@ -41,7 +41,7 @@ class Summary:
         self.casos_acc = casos_acc
         self.muertes = muertes
         self.muertes_acc = muertes_acc
-        self.letalidad = div(muertes, casos) * 100
+        self.letalidad = div(muertes, casos) # todo: en porcentaje o valor entre (0,1) ?
         self.casos_cada_cien_mil = div(casos, self.poblacion) * 100000
         self.casos_por_millon = div(casos, self.poblacion) * 1000000
         self.muertes_cada_cien_mil = div(muertes, self.poblacion) * 100000
@@ -54,7 +54,7 @@ class Summary:
     def add_casos_muertes(self, casos, muertes):
         self.casos = casos
         self.muertes = muertes
-        self.letalidad = div(muertes, casos) * 100
+        self.letalidad = div(muertes, casos) # todo: en porcentaje o valor entre (0,1) ?
         self.casos_cada_cien_mil = div(casos, self.poblacion) * 100000
         self.casos_por_millon = div(casos, self.poblacion) * 1000000
         self.muertes_cada_cien_mil = div(muertes, self.poblacion) * 100000

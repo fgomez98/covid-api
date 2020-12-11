@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask_restful import Resource, reqparse, marshal_with
 from flask_restful_swagger import swagger
 
@@ -5,7 +7,6 @@ from covidapi.db import query, df
 from covidapi.models.filters import Filters
 from covidapi.models.summary import Summary
 from covidapi.resources.handlers import summary, get_bool, get_date, summary_history
-from datetime import date
 
 filters_get_args = reqparse.RequestParser()
 filters_get_args.add_argument('icu', type=get_bool, help="filter by cases in icu", required=False)
@@ -53,13 +54,7 @@ class National(Resource):
              'allowMultiple': False,
              'dataType': 'datetime',
              'paramType': 'query'}
-        ],
-        # responseMessages=[
-        #     {
-        #         "code": 200,
-        #         "message": "Ok"
-        #     },
-        # ]
+        ]
     )
     @marshal_with(Summary.resource_fields)
     # fixme: me enquilombe un poco tratando de que las fechas sean un argumento opcional
@@ -117,13 +112,7 @@ class NationalHistory(Resource):
              'allowMultiple': False,
              'dataType': 'datetime',
              'paramType': 'query'}
-        ],
-        # responseMessages=[
-        #     {
-        #         "code": 200,
-        #         "message": "Ok"
-        #     },
-        # ]
+        ]
     )
     @marshal_with(Summary.resource_fields)
     # fixme: me enquilombe un poco tratando de que las fechas sean un argumento opcional
@@ -181,13 +170,7 @@ class NationalCount(Resource):
              'allowMultiple': False,
              'dataType': 'datetime',
              'paramType': 'query'}
-        ],
-        # responseMessages=[
-        #     {
-        #         "code": 200,
-        #         "message": "Ok"
-        #     },
-        # ]
+        ]
     )
     def get(self):
         args = filters_get_args.parse_args()

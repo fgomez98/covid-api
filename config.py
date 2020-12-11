@@ -2,7 +2,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
 
-    DATA_FILE = 'data/Covid19Casos1000.csv'
+    DATA_FILE = 'data/Covid19Casos100000.csv'
 
     # SQLALCHEMY_DATABASE_URI = 'postgresql://db:username@localhost/dbname'
     # DB = ""
