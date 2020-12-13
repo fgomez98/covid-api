@@ -5,7 +5,7 @@ from flask_restful_swagger import swagger
 
 from covidapi.db import query, df
 from covidapi.models.filters import Filters
-from covidapi.models.summary import Summary
+from covidapi.models.summaryhistory import SummaryHistory
 from covidapi.resources.handlers import summary, get_bool, get_date, summary_history
 
 filters_get_args = reqparse.RequestParser()
@@ -56,7 +56,7 @@ class National(Resource):
              'paramType': 'query'}
         ]
     )
-    @marshal_with(Summary.resource_fields)
+    @marshal_with(SummaryHistory.resource_fields)
     # fixme: me enquilombe un poco tratando de que las fechas sean un argumento opcional
     def get(self):
         args = filters_get_args.parse_args()
@@ -114,7 +114,7 @@ class NationalHistory(Resource):
              'paramType': 'query'}
         ]
     )
-    @marshal_with(Summary.resource_fields)
+    @marshal_with(SummaryHistory.resource_fields)
     # fixme: me enquilombe un poco tratando de que las fechas sean un argumento opcional
     def get(self):
         args = filters_get_args.parse_args()

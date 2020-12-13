@@ -5,6 +5,7 @@ from flask_restful_swagger import swagger
 
 from covidapi.db import query, df
 from covidapi.models.filters import Filters
+from covidapi.models.summaryhistory import SummaryHistory
 from covidapi.models.summary import Summary
 from covidapi.resources.handlers import summary, get_bool, get_date, summary_history
 
@@ -153,7 +154,7 @@ class Stats(Resource):
 
 class History(Resource):
     @swagger.operation(parameters=parameters)
-    @marshal_with(Summary.resource_fields)
+    @marshal_with(SummaryHistory.resource_fields)
     def get(self):
         args = filters_get_args.parse_args()
         filters = Filters()
