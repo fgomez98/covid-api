@@ -40,7 +40,7 @@ class National(Resource):
              "required": False,
              'allowMultiple': False,
              'dataType': 'string',
-             'enum': ['confirmed', 'suspected', 'rejejcted'],
+             'enum': ['confirmed', 'suspected', 'rejected'],
              'paramType': 'query'},
             {'name': 'from',
              'description': 'format: yyyy-mm-dd',
@@ -67,7 +67,7 @@ class National(Resource):
         filters.add_respirator(respirator=args.get('respirator'))
         filters.add_classification(classification=args.get('classification'))
         result = query(df, filters)
-        if filters.start_date != None and filters.end_date != None:
+        if filters.start_date is not None and filters.end_date is not None:
             ret = summary(filters.start_date, filters.end_date, 'nacional', result)
         else:
             ret = summary(date(year=2020, month=1, day=1), date.today(), 'nacional', result)
@@ -98,7 +98,7 @@ class NationalHistory(Resource):
              "required": False,
              'allowMultiple': False,
              'dataType': 'string',
-             'enum': ['confirmed', 'suspected', 'rejejcted'],
+             'enum': ['confirmed', 'suspected', 'rejected'],
              'paramType': 'query'},
             {'name': 'from',
              'description': 'format: yyyy-mm-dd',
@@ -125,7 +125,7 @@ class NationalHistory(Resource):
         filters.add_respirator(respirator=args.get('respirator'))
         filters.add_classification(classification=args.get('classification'))
         result = query(df, filters)
-        if filters.start_date != None and filters.end_date != None:
+        if filters.start_date is not None and filters.end_date is not None:
             ret = summary_history(filters.start_date, filters.end_date, 'nacional', result)
         else:
             ret = summary_history(date(year=2020, month=1, day=1), date.today(), 'nacional', result)
@@ -156,7 +156,7 @@ class NationalCount(Resource):
              "required": False,
              'allowMultiple': False,
              'dataType': 'string',
-             'enum': ['confirmed', 'suspected', 'rejejcted'],
+             'enum': ['confirmed', 'suspected', 'rejected'],
              'paramType': 'query'},
             {'name': 'from',
              'description': 'format: yyyy-mm-dd',

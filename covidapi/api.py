@@ -2,10 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_restful_swagger import swagger
 
-from covidapi.resources.bar import Bar
-from covidapi.resources.foo import Foo
-from covidapi.resources.national import National, NationalCount, NationalHistory
-from covidapi.resources.provinces import Provinces, ProvinceCount, Province
+from covidapi.resources.apiClasses import Stats, History, Count
 
 app = Flask(__name__)
 if app.config['ENV'] == 'production':
@@ -13,16 +10,11 @@ if app.config['ENV'] == 'production':
 elif app.config['ENV'] == 'development':
     app.config.from_object('config.DevelopmentConfig')
 
-api = swagger.docs(Api(app), apiVersion="0.1", description="My API Swagger doc", )
+api = swagger.docs(Api(app), apiVersion="0.1", description="My API Swagger doc for COVID in Argentina", )
 
-api.add_resource(Foo, "/foo/<string:user>/")
-api.add_resource(Bar, "/bar/")
-api.add_resource(National, "/national/")
-api.add_resource(NationalHistory, "/national/history/")
-api.add_resource(NationalCount, "/national/count/")
-api.add_resource(Provinces, "/provinces/")
-api.add_resource(Province, "/provinces/<string:id>/")
-api.add_resource(ProvinceCount, "/provinces/<string:id>/count/")
+api.add_resource(Stats, "/stats/")
+api.add_resource(History, "/historial/")
+api.add_resource(Count, "/cantidad/")
 
 
 def run_api(*args, **kwargs):
