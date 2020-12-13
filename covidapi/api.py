@@ -2,7 +2,9 @@ from flask import Flask
 from flask_restful import Api
 from flask_restful_swagger import swagger
 
-from covidapi.resources.apiClasses import Stats, History, Count
+from covidapi.resources.count import Count
+from covidapi.resources.history import History
+from covidapi.resources.stats import Stats
 
 app = Flask(__name__)
 if app.config['ENV'] == 'production':

@@ -12,3 +12,4 @@ for sheet_name in f.sheet_names:
         population_data[sheet_name.split('-')[1].lower()] = f.parse(sheet_name).iloc[year_index, 1]
 
 population_data['nacional'] = population_data.pop('total del país')
+population_data['santa fe'] = population_data.pop('sante fe')  ## error lexicografico en el documento

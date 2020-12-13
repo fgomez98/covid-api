@@ -7,7 +7,7 @@ from flask_restful import abort
 
 from covidapi.db import query
 from covidapi.models.filters import Filters
-from covidapi.models.summaryhistory import SummaryHistory
+from covidapi.models.summary import SummaryHistory, Summary
 from covidapi.population import population_data
 
 delta = timedelta(days=1)
@@ -34,8 +34,7 @@ def raise_general_error():
 
 def summary(start_date: date, end_date: date, region: str, df: pd.DataFrame):
     population = population_data[region]
-    summary = SummaryHistory(population=population)
-    # fixme: estos filters, pq no paso como argumento????? preguntar a fer que lo implemento
+    summary = Summary(population=population)
     filter = Filters()
     filter.add_interval(start_date, end_date)
     current_df = query(df, filter)

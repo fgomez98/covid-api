@@ -5,34 +5,33 @@ from covidapi.models.filters import Filters
 
 bool2value = {True: "'SI'", False: "'NO'"}
 classification2value = {'confirmed': "'Confirmado'", 'suspected': "'Sospechoso'", 'rejected': "'Descartado'"}
-age = {'years': "'Años'", 'months': "'Meses'"}
-gender = {'male': "'M'", 'female': "'F'"}
-regions = {'caba': "'CABA'",
-           'buenos_aires': "'Buenos Aires'",
-           'catamarca': "'Catamarca'",
-           'cordoba': "'Córdoba'",
-           'corrientes': "'Corrientes'",
-           'chaco': "'Chaco'",
-           'chubut': "'Chubut'",
-           'entre_rios': "'Entre Ríos'",
-           'formosa': "'Formosa'",
-           'jujuy': "'Jujuy'",
-           'la_pampa': "'La Pampa'",
-           'la_rioja': "'La Rioja'",
-           'mendoza': "'Mendoza'",
-           'misiones': "'Misiones'",
-           'neuquen': "'Neuquén'",
-           'rio_negro': "'Río Negro'",
-           'salta': "'Salta'",
-           'san_juan': "'San Juan'",
-           'san_luis': "'San Luis'",
-           'santa_cruz': "'Santa Cruz'",
-           'sante_fe': "'Santa Fe'",
-           'santiago_del_estero': "'Santiago del Estero'",
-           'tucuman': "'Tucumán'",
-           'tierra_del_fuego': "'Tierra del Fuego'",
-           }
-
+age2value = {'years': "'Años'", 'months': "'Meses'"}
+gender2value = {'male': "'M'", 'female': "'F'"}
+regions2value = {'caba': "'CABA'",
+                 'buenos_aires': "'Buenos Aires'",
+                 'catamarca': "'Catamarca'",
+                 'cordoba': "'Córdoba'",
+                 'corrientes': "'Corrientes'",
+                 'chaco': "'Chaco'",
+                 'chubut': "'Chubut'",
+                 'entre_rios': "'Entre Ríos'",
+                 'formosa': "'Formosa'",
+                 'jujuy': "'Jujuy'",
+                 'la_pampa': "'La Pampa'",
+                 'la_rioja': "'La Rioja'",
+                 'mendoza': "'Mendoza'",
+                 'misiones': "'Misiones'",
+                 'neuquen': "'Neuquén'",
+                 'rio_negro': "'Río Negro'",
+                 'salta': "'Salta'",
+                 'san_juan': "'San Juan'",
+                 'san_luis': "'San Luis'",
+                 'santa_cruz': "'Santa Cruz'",
+                 'sante_fe': "'Santa Fe'",
+                 'santiago_del_estero': "'Santiago del Estero'",
+                 'tucuman': "'Tucumán'",
+                 'tierra_del_fuego': "'Tierra del Fuego'",
+                 }
 
 # fixme: diferenciar de dev y prod
 df = pd.read_csv(Config.DATA_FILE)
@@ -59,9 +58,9 @@ def query(data_frame, filters: Filters) -> pd.DataFrame:
         query_build = append_to_query("clasificacion_resumen == " + classification2value[filters.classification],
                                       query_build)
     if filters.gender is not None:
-        query_build = append_to_query("sexo == " + gender[filters.gender], query_build)
+        query_build = append_to_query("sexo == " + gender2value[filters.gender], query_build)
 
-    age_month = classification2value[filters.year_month] if filters.year_month is not None else "'Años'"
+    age_month = age2value[filters.year_month] if filters.year_month is not None else "'Años'"
     age_flag = False
 
     if filters.min_age is not None:
@@ -80,7 +79,7 @@ def query(data_frame, filters: Filters) -> pd.DataFrame:
         query_build = append_to_query("edad_años_meses == " + age_month, query_build)
 
     if filters.province is not None and filters.province != 'nacional':
-        query_build = append_to_query("residencia_provincia_nombre == " + regions[filters.province], query_build)
+        query_build = append_to_query("residencia_provincia_nombre == " + regions2value[filters.province], query_build)
 
     if query_build != "":
         return data_frame.query(query_build)
