@@ -29,12 +29,11 @@ flask run
 #### Samples
 
 ```
-curl -X GET -H "Content-Type: application/json"  http://127.0.0.1:5000/bar/ -d '{"name": "Juan", "age": 21}'
-curl -X POST -H "Content-Type: application/json"  http://127.0.0.1:5000/bar/ -d '{"name": "Pablo", "age": 42}'
-curl -X GET http://127.0.0.1:5000/bar/
-curl -X POST http://127.0.0.1:5000/foo/titi_henry/
-curl -X GET http://127.0.0.1:5000/foo/titi_henry/
-curl -X DELETE http://127.0.0.1:5000/foo/titi_henry/
+curl -X GET http://127.0.0.1:5000/historial/?muertos=true
+curl -X POST http://127.0.0.1:5000/historial/?muertos=true&classificacion=confirmed
+curl -X GET http://127.0.0.1:5000/stats/?region=caba
+curl -X DELETE http://127.0.0.1:5000/cantidad/?respirador=true&sexo=male
+
 ```     
 
 #### Acces swagger Documentation on
