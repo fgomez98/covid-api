@@ -30,9 +30,9 @@ flask run
 
 ```
 curl -X GET http://127.0.0.1:5000/historial/?muertos=true
-curl -X POST http://127.0.0.1:5000/historial/?muertos=true&classificacion=confirmed
+curl -X GET http://127.0.0.1:5000/historial/?muertos=true&classificacion=confirmed
 curl -X GET http://127.0.0.1:5000/stats/?region=caba
-curl -X DELETE http://127.0.0.1:5000/cantidad/?respirador=true&sexo=male
+curl -X GET http://127.0.0.1:5000/cantidad/?respirador=true&sexo=male
 
 ```     
 
