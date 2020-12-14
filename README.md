@@ -33,7 +33,6 @@ curl -X GET http://127.0.0.1:5000/historial/?muertos=true
 curl -X GET http://127.0.0.1:5000/historial/?muertos=true&classificacion=confirmed
 curl -X GET http://127.0.0.1:5000/stats/?region=caba
 curl -X GET http://127.0.0.1:5000/cantidad/?respirador=true&sexo=male
-
 ```     
 
 #### Acces swagger Documentation on
