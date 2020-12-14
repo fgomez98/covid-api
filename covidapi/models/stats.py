@@ -38,7 +38,7 @@ class Stats():
 
 
 @swagger.model
-class StatsHistory(Stats):
+class StatsHistorial(Stats):
     # variable de clase para flask
     resource_fields = {
         ### Summary History
