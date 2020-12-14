@@ -12,7 +12,7 @@ if app.config['ENV'] == 'production':
 elif app.config['ENV'] == 'development':
     app.config.from_object('config.DevelopmentConfig')
 
-api = swagger.docs(Api(app), apiVersion="0.1", description="My API Swagger doc for COVID in Argentina", )
+api = swagger.docs(Api(app), apiVersion="0.1", description="Grupo A: API COVID Argentina")
 
 api.add_resource(Stats, "/stats/")
 api.add_resource(History, "/historial/")

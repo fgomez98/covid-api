@@ -5,14 +5,14 @@ from flask_restful_swagger import swagger
 
 from covidapi.db import query, df
 from covidapi.models.filters import Filters
-from covidapi.models.summary import Summary
+from covidapi.models.stats import Stats
 from covidapi.resources.resource_handlers import summary
 from covidapi.resources.resource_utils import parameters, filters_get_args, pUtf8
 
 
 class Stats(Resource):
-    @swagger.operation(parameters=parameters)
-    @marshal_with(Summary.resource_fields)
+    @swagger.operation(responseClass=Stats.__name__, parameters=parameters)
+    @marshal_with(Stats.resource_fields)
     def get(self):
         args = filters_get_args.parse_args()
         print(args)
