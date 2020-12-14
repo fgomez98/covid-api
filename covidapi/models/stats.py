@@ -1,12 +1,12 @@
 from flask_restful import fields
-
+from flask_restful_swagger import swagger
 
 #    Safe zero division method
 def div(a, b):
     return round(a / b, 5) if b != 0 else 0
 
-
-class Summary(object):
+@swagger.model
+class Stats():
     # variable de clase para flask
     resource_fields = {
         'casos': fields.Integer,
@@ -37,7 +37,8 @@ class Summary(object):
         self.muertes_por_millon = div(muertes, self.poblacion) * 1000000
 
 
-class SummaryHistory(Summary):
+@swagger.model
+class StatsHistorial(Stats):
     # variable de clase para flask
     resource_fields = {
         ### Summary History
